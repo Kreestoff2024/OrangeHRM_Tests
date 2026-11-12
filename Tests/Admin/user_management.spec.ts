@@ -39,7 +39,7 @@ test('ajouter un nouvel utilisateur', async ({ page }) => {
   
 });
 
-test('supprimer un utilisateur', async ({ page }) => {
+test('supprimer un utilisateur_1', async ({ page }) => {
 
   const loginPage = new LoginPage(page);
   await loginPage.goto();
@@ -52,4 +52,38 @@ test('supprimer un utilisateur', async ({ page }) => {
   await expect(page.getByText('Successfully Deleted')).toBeVisible();
   await expect(page).toHaveURL(/viewSystemUsers/);
  
+});
+
+test('supprimer un utilisateur_2', async ({ page }) => {
+
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('Admin', 'admin123');
+
+  await page.getByRole('link', { name: 'Admin' }).click();
+  await page.locator('div:nth-child(6) > .oxd-table-row > div > .oxd-table-card-cell-checkbox > .oxd-checkbox-wrapper > label > .oxd-checkbox-input > .oxd-icon').click();
+  await page.locator('div:nth-child(6) > .oxd-table-row > div > .oxd-table-card-cell-checkbox > .oxd-checkbox-wrapper > label > input').check();
+  await page.getByRole('button', { name: ' Delete Selected' }).click();
+  await page.getByRole('button', { name: ' Yes, Delete' }).click();
+
+  await expect(page.getByText('Successfully Deleted')).toBeVisible();
+  await expect(page).toHaveURL(/viewSystemUsers/);
+  
+});
+
+test('modifier rôle utilisateur', async ({ page }) => {
+
+  const loginPage = new LoginPage(page);
+  await loginPage.goto();
+  await loginPage.login('Admin', 'admin123');
+
+  await page.getByRole('link', { name: 'Admin' }).click();
+  await page.locator('div:nth-child(4) > .oxd-table-row > div:nth-child(6) > .oxd-table-cell-actions > button:nth-child(2)').click();
+  await page.locator('form').getByText('Admin').click();
+  await page.getByText('ESS').click();
+  await page.getByRole('button', { name: 'Save' }).click();
+
+  await expect(page.getByText('Successfully Updated')).toBeVisible();
+  await expect(page).toHaveURL(/viewSystemUsers/);
+  
 });
