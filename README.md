@@ -18,3 +18,11 @@
 - 05/11/2026
 
 - Ajout d'un test "Supprimer un utilisateur".
+
+- 19/11/2026
+
+- Ajout d'un fichier fixtures.ts pour préparer et nettoyer les tests.
+
+- Mise à jour des tests d'ajout, de suppression d'un utilisateur.
+
+- Ajout de tests de modification de rôle d'utilisateur (ESS > Admin et Admin vers ESS).
